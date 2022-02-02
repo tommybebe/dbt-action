@@ -22,7 +22,7 @@ then
 elif [ -n "${DBT_USER}" ] && [ -n "$DBT_PASSWORD" ]
 then
  echo trying to use user/password
- sed -i "s/_user_/${DBT_USER}/g" ./datab.yml
+ sed -i "s/_user_/${DBT_USER}/g" ./profiles.yml
  sed -i "s/_password_/${DBT_PASSWORD}/g" ./profiles.yml
 elif [ -n "${DBT_TOKEN}" ]
 then
@@ -31,7 +31,7 @@ then
 else
   echo no tokens or credentials supplied
 fi
-
+DBT_PROFILES_DIR=.
 DBT_LOG_FILE=${DBT_LOG_FILE:="dbt_console_output.txt"}
 DBT_LOG_PATH="${INPUT_DBT_PROJECT_FOLDER}/${DBT_LOG_FILE}"
 echo "DBT_LOG_PATH=${DBT_LOG_PATH}" >> $GITHUB_ENV
