@@ -48,3 +48,18 @@ if [ $? -eq 0 ]
     echo "DBT run failed" >> "${DBT_LOG_FILE}"
     exit 1
 fi
+
+if [ -n "${DBT_BIGQUERY_TOKEN_DEV}" ]
+then
+  echo trying to parse bigquery token
+  $(echo ${DBT_BIGQUERY_TOKEN_DEV} | base64 -d > ./creds_dev.json 2>/dev/null)
+  if [ $? -eq 0 ]
+  then
+    echo success parsing base64 encoded token
+  elif $(echo ${DBT_BIGQUERY_TOKEN_DEV} > ./creds_dev.json)
+  then
+    echo success parsing plain token
+  else
+    echo cannot parse bigquery token
+    exit 1
+  fi
