@@ -63,3 +63,4 @@ then
     echo cannot parse bigquery token
     exit 1
   fi
+fi
